@@ -112,6 +112,7 @@ const loggedIn = () => {
     }
   });
   const post = async () => {
+    content.prop("disabled", true);
     await fetch("https://api.meower.org/home", {
       method: "POST",
       headers: {
@@ -128,7 +129,6 @@ const loggedIn = () => {
   };
   enterPost.on("submit", async function (e) {
     e.preventDefault();
-    content.prop("disabled", true);
     await post();
   });
   fetch("https://api.meower.org/home?autoget=1").then(async (response) => {
