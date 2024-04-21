@@ -7,7 +7,7 @@
   <body>
     <div class="container mx-auto py-4 px-3">
       <h1>Jeow</h1>
-      <div>
+      <div id="pre-logged-in">
         <button
           class="btn btn-primary"
           data-bs-toggle="modal"
@@ -15,6 +15,18 @@
         >
           Log in
         </button>
+      </div>
+      <div id="logged-in" style="display: none">
+        <form id="enter-post" class="mb-3">
+          <input
+            type="text"
+            class="form-control mb-3"
+            name="content"
+            placeholder="Enter something..."
+          />
+          <button type="submit" class="btn btn-primary">Post</button>
+        </form>
+        <div id="posts"></div>
       </div>
     </div>
     <div
@@ -68,6 +80,16 @@
               <button type="submit" class="btn btn-primary">Log in</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+    <div hidden>
+      <div id="post-template">
+        <div class="card container mb-3">
+          <div class="card-body">
+            <div class="card-title h5 username">Username</div>
+            <div class="card-text content">Content</div>
+          </div>
         </div>
       </div>
     </div>
