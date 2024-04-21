@@ -31,6 +31,9 @@ const CLOUDLINK_POST_SCHEMA = z.object({
   cmd: z.literal("direct"),
   val: POST_SCHEMA,
 });
+const HOME_SCHEMA = z.object({
+  autoget: POST_SCHEMA.array(),
+});
 
 let token: string;
 
@@ -117,6 +120,11 @@ const loggedIn = () => {
     content.prop("disabled", false);
     content.val("");
     content[0].focus();
+  });
+  fetch("https://api.meower.org/home?autoget=1").then(async (response) => {
+    HOME_SCHEMA.parse(await response.json()).autoget.forEach((post) =>
+      posts.append(makePost(post))
+    );
   });
 };
 
