@@ -140,7 +140,14 @@ const loggedIn = () => {
 
 const makePost = (post: Post) => {
   const template = $("#post-template > div").clone();
-  template.find(".username").text(post.u);
-  template.find(".content").text(post.p);
+  if (post.u === "Discord") {
+    const [user, ...content] = post.p.split(":");
+    template.find(".username").text(user);
+    template.find(".content").text(content.join(":"));
+    template.find(".bridged").show();
+  } else {
+    template.find(".username").text(post.u);
+    template.find(".content").text(post.p);
+  }
   return template;
 };
