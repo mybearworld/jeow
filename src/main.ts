@@ -116,6 +116,7 @@ const loggedIn = () => {
     });
     content.prop("disabled", false);
     content.val("");
+    content[0].focus();
   });
 };
 
