@@ -5,7 +5,72 @@
     <title>Jeow</title>
   </head>
   <body>
-    <div class="container mx-auto py-4 px-3">Hello, world!</div>
+    <div class="container mx-auto py-4 px-3">
+      <h1>Jeow</h1>
+      <div>
+        <button
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#login-modal"
+        >
+          Log in
+        </button>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="login-modal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Log in</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="login-form">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                  type="text"
+                  placeholder="Username"
+                  class="form-control"
+                  name="username"
+                  required
+                />
+              </div>
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                placeholder="Password"
+                class="form-control"
+                name="password"
+                required
+              />
+            </div>
+            <div class="modal-footer">
+              <div class="info"></div>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Log in</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
