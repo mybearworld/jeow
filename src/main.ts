@@ -98,15 +98,20 @@ const loggedIn = () => {
   $("#pre-logged-in").hide();
   $("#logged-in").show();
   const posts = $("#posts");
+  const enterPost = $<HTMLFormElement>("#enter-post");
+  const content = enterPost.find("[name=content]");
   cloudlink.on("packet", (packet: unknown) => {
     const parsed = CLOUDLINK_POST_SCHEMA.safeParse(packet);
     if (!parsed.success) return;
     posts.prepend(makePost(parsed.data.val));
   });
-  $("#enter-post").on("submit", async function (e) {
-    e.preventDefault();
-    const content = $(this).find("[name=content]");
-    content.prop("disabled", true);
+  content.on("keydown", async function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      await post();
+    }
+  });
+  const post = async () => {
     await fetch("https://api.meower.org/home", {
       method: "POST",
       headers: {
@@ -120,6 +125,11 @@ const loggedIn = () => {
     content.prop("disabled", false);
     content.val("");
     content[0].focus();
+  };
+  enterPost.on("submit", async function (e) {
+    e.preventDefault();
+    content.prop("disabled", true);
+    await post();
   });
   fetch("https://api.meower.org/home?autoget=1").then(async (response) => {
     HOME_SCHEMA.parse(await response.json()).autoget.forEach((post) =>
