@@ -25,6 +25,12 @@ const LOGIN_SCHEMA = z
 const POST_SCHEMA = z.object({
   p: z.string(),
   u: z.string(),
+  attachments: z
+    .object({
+      filename: z.string(),
+      id: z.string(),
+    })
+    .array(),
 });
 type Post = z.infer<typeof POST_SCHEMA>;
 const CLOUDLINK_POST_SCHEMA = z.object({
@@ -148,6 +154,20 @@ const makePost = (post: Post) => {
   } else {
     template.find(".username").text(post.u);
     template.find(".content").text(post.p);
+  }
+  if (post.attachments) {
+    const attachments = template.find(".attachments");
+    attachments.show();
+    post.attachments.forEach((attachment) => {
+      const element = $("<img>");
+      element.prop(
+        "src",
+        `https://uploads.meower.org/attachments/${attachment.id}/${attachment.filename}`
+      );
+      element.prop("style", "max-width: 100%");
+      console.log(element);
+      attachments.append(element);
+    });
   }
   return template;
 };
